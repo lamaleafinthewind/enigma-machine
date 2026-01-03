@@ -16,12 +16,13 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
 
-    "//": "This command compiles C and puts it in public/",
-    "compile:core": "emcc ../core/main.c -o public/enigma_core.js -s WASM=1 -s \"EXPORTED_RUNTIME_METHODS=['ccall','cwrap']\" -s MODULARIZE=1 -s \"EXPORT_NAME='createEnigmaModule'\" -O3",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
 
-    "//": "Optional: A command to do everything at once",
-    "setup": "npm install && npm run compile:core"
+    "compile:core": "emcc ../core/main.c -o public/enigma_core.js -s WASM=1 -s \"EXPORTED_RUNTIME_METHODS=['ccall','cwrap']\" -s MODULARIZE=1 -s \"EXPORT_NAME='createEnigmaModule'\" -O3"
   },
   "eslintConfig": {
     "extends": [
