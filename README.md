@@ -1,4 +1,6 @@
 
+## 🔗 [Launch Live Machine](https://lamaleafinthewind.github.io/enigma-machine/)
+
 ## 🛠️ Building from Source
 
 ### Prerequisites
