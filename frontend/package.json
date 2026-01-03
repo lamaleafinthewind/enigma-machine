@@ -1,0 +1,47 @@
+
+{
+  "name": "enigma-simulator",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://lamaleafinthewind.github.io/enigma-maschine",
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+
+    "//": "This command compiles C and puts it in public/",
+    "compile:core": "emcc ../core/main.c -o public/enigma_core.js -s WASM=1 -s \"EXPORTED_RUNTIME_METHODS=['ccall','cwrap']\" -s MODULARIZE=1 -s \"EXPORT_NAME='createEnigmaModule'\" -O3",
+
+    "//": "Optional: A command to do everything at once",
+    "setup": "npm install && npm run compile:core"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  }
+}

@@ -1,0 +1,377 @@
+body {
+  background-color: #222;
+  color: #eee;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+}
+
+/* ROTOR CONTAINER */
+.rotor-container {
+  display: flex;
+  gap: 20px;
+  background: #2a2a2a;
+  padding: 20px 30px;
+  border-radius: 4px;
+  border: 1px solid #444;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  margin-bottom: 30px;
+
+  /* Wood/Metal texture background effect (optional) */
+  background-image: linear-gradient(to bottom, #333, #222);
+}
+
+/* THE THUMBWHEEL WINDOW */
+.rotor-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.rotor-label {
+  color: #888;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.rotor-select {
+  margin-bottom: 8px;
+  background: #222;
+  color: #ccc;
+  border: 1px solid #555;
+  border-radius: 4px;
+  padding: 2px 5px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
+.rotor-select:hover {
+  border-color: #888;
+  background: #333;
+}
+
+.rotor-select:focus {
+  outline: none;
+  border-color: #fff;
+}
+
+/* THE MECHANICAL WHEEL */
+.rotor-wheel {
+  width: 50px;
+  height: 100px; /* Tall enough for 3 letters */
+  background: #ddd;
+  border-radius: 4px;
+  border: 2px solid #111;
+  overflow: hidden; /* Hide anything outside the box */
+  cursor: pointer;
+  position: relative;
+
+  /* Cylinder shading effect */
+  background: linear-gradient(
+          to bottom,
+          #888 0%,
+          #eee 40%,
+          #eee 60%,
+          #888 100%
+  );
+
+  /* Inner shadow for depth */
+  box-shadow: inset 0 0 10px #000;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* INDIVIDUAL LETTERS ON WHEEL */
+.wheel-cell {
+  height: 33%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #333;
+  user-select: none;
+  transition: background 0.1s;
+}
+
+/* The middle one is the active one */
+.wheel-cell.active {
+  font-size: 1.5rem;
+  color: #000;
+  /* Add a lens/glass effect */
+  background: rgba(255,255,255,0.4);
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+}
+
+/* Hover effects for up/down interaction */
+.wheel-cell.neighbor:hover {
+  background-color: rgba(0,0,0,0.1);
+  color: #000;
+}
+
+.rotor-label {
+  font-size: 0.7rem;
+  color: #aaa;
+  margin-bottom: 5px;
+}
+
+.rotor-val {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ddd;
+}
+
+/* LAMPBOARD LAYOUT */
+.lampboard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 30px;
+  align-items: center;
+}
+
+.keyboard-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* INDIVIDUAL LAMP */
+.lamp {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #555;
+  background-color: #1a1a1a;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: all 0.1s;
+}
+
+/* THE GLOW EFFECT */
+.lamp.lit {
+  background-color: #f7e697; /* Light yellow bulb color */
+  color: #333;
+  border-color: #ffcc00;
+  box-shadow: 0 0 15px #ffcc00, 0 0 30px #ffcc00 inset;
+  transform: scale(1.05);
+}
+
+/* LOGS */
+.logs-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 80%;
+  max-width: 600px;
+}
+
+.log-box {
+  background: #111;
+  border: 1px solid #444;
+  padding: 10px;
+  height: 100px;
+  overflow-y: auto;
+  font-family: monospace;
+  color: #bbb;
+  word-break: break-all;
+}
+
+button.reset-btn {
+  background: #444;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+button.reset-btn:hover {
+  background: #555;
+}
+
+.rotor-window button {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 2px;
+}
+
+.rotor-window button:hover {
+  color: #fff;
+  background-color: #444;
+  border-radius: 4px;
+}
+
+/* PLUGBOARD CONTAINER */
+.plugboard-section {
+  margin-top: 30px;
+  border-top: 1px solid #444;
+  padding-top: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* THE GRID OF SOCKETS */
+.plug-grid {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr); /* 2 rows of 13 */
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.plug-socket {
+  width: 36px;
+  height: 46px;
+  background: #2a2a2a;
+  border: 2px solid #555;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.1s;
+}
+
+.plug-socket:hover {
+  border-color: #888;
+  background: #333;
+}
+
+.plug-socket.selected {
+  border-color: #fff;
+  background: #444;
+  box-shadow: 0 0 8px rgba(255,255,255,0.3);
+}
+
+.plug-socket.plugged {
+  border-color: #aaa;
+  background: #1a1a1a;
+}
+
+/* THE LETTER LABEL (Top of socket) */
+.socket-label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #888;
+}
+
+/* THE PARTNER LABEL (Bottom of socket, showing connection) */
+.socket-partner {
+  font-size: 0.75rem;
+  color: #fff;
+  background-color: #444;
+  padding: 1px 4px;
+  border-radius: 3px;
+  margin-top: 2px;
+}
+
+/* ACTIVE CABLES LIST */
+.cables-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  max-width: 600px;
+  background: #111;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+
+.cable-tag {
+  background: #333;
+  color: #ddd;
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  font-family: monospace;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-left: 5px solid; /* Color stripe */
+}
+
+.cable-remove {
+  cursor: pointer;
+  color: #888;
+  font-weight: bold;
+  padding: 0 4px;
+}
+.cable-remove:hover { color: #ff5555; }
+
+/* POWER OVERLAY */
+.power-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85); /* Dark dimming */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100; /* Sit on top of everything */
+  backdrop-filter: blur(5px); /* Nice modern blur effect */
+}
+
+.power-box {
+  background: #333;
+  padding: 40px;
+  border-radius: 10px;
+  border: 2px solid #555;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+}
+
+.power-btn {
+  background: #d32f2f; /* Red switch color */
+  color: white;
+  border: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 15px 40px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4);
+  transition: all 0.2s;
+}
+
+.power-btn:hover {
+  background: #f44336;
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(244, 67, 54, 0.6);
+}
+
+.power-btn:active {
+  transform: scale(0.95);
+}
