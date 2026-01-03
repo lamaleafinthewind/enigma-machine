@@ -204,8 +204,13 @@ function App() {
 
   const handleKeyDown = useCallback((e) => {
     if (!isLoaded || !isPowered || e.repeat) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) {
+      return;
+    }
 
-    // 1. Prepare the input
+    if (isProcessing) return;
+
+    // Input preparation
     const char = e.key.toUpperCase();
     if (!/^[A-Z]$/.test(char)) return;
 
