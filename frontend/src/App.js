@@ -208,8 +208,6 @@ function App() {
       return;
     }
 
-    if (isProcessing) return;
-
     // Input preparation
     const char = e.key.toUpperCase();
     if (!/^[A-Z]$/.test(char)) return;
@@ -280,6 +278,26 @@ function App() {
     setSelectedPlug(null);
 
     // plugborad connection update
+    updatePlugboardState();
+  };
+
+  const handleSoftReset = () => {
+    if(!enigmaModule.current) return;
+
+    enigmaModule.current.ccall(
+        'configure_machine',
+        'null',
+        ['number', 'number', 'number', 'number', 'number', 'number'],
+        [rotorModels.slot1, 0, rotorModels.slot2, 0, rotorModels.slot3, 0]
+    );
+
+    setInputLog("");
+    setOutputLog("");
+    setRotors({ r1: 0, r2: 0, r3: 0 }); // Reset visual rotors to 0
+    setActiveLamp(null);
+
+    setSelectedPlug(null);
+
     updatePlugboardState();
   };
 
@@ -456,7 +474,10 @@ function App() {
           )}
         </div>
 
-        <button className="reset-btn" onClick={handleReset}>Reset</button>
+        <div className="button-group">
+          <button className="reset-btn" onClick={handleReset}>Reset</button>
+          <button className="reset-btn" onClick={handleSoftReset}>Soft Reset</button>
+        </div>
 
         {/* BATCH INPUT */}
         <div style={{width: '80%', maxWidth: '600px', marginBottom: '20px'}}>

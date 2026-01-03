@@ -11,6 +11,13 @@ body {
   padding-top: 40px;
 }
 
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
 /* ROTOR CONTAINER */
 .rotor-container {
   display: flex;
@@ -22,7 +29,6 @@ body {
   box-shadow: 0 10px 20px rgba(0,0,0,0.5);
   margin-bottom: 30px;
 
-  /* Wood/Metal texture background effect (optional) */
   background-image: linear-gradient(to bottom, #333, #222);
 }
 
@@ -200,10 +206,14 @@ button.reset-btn {
   background: #444;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 0;
   cursor: pointer;
   margin-bottom: 20px;
-  border-radius: 4px;
+  border-radius: 6px;
+
+  width: 120px;
+  text-align: center;
+  cursor: pointer;
 }
 
 button.reset-btn:hover {
